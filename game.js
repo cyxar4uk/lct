@@ -641,6 +641,9 @@ function tick(now) {
   shipAngle += 0.001 * dt;
   if(shipAngle > Math.PI * 2) shipAngle -= Math.PI * 2;
   
+  // Обновляем анимацию солнца
+  sunAnimationTime += dt;
+  
   // Обновляем исследование планет
   updatePlanetExploration(dt);
   
@@ -1350,7 +1353,7 @@ upgradeBtn.addEventListener('click', () => {
         state.stationLevel++;
         save();
         panel.classList.add('hidden');
-        updateUI();
+    updateUI();
       }
     });
   }
@@ -1372,7 +1375,7 @@ upgradeBtn.addEventListener('click', () => {
           });
           
           save();
-    updateUI();
+updateUI();
           panel.classList.add('hidden');
           
           alert(`Бустер "${booster.name}" активирован!\n${booster.description}`);
