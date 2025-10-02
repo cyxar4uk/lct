@@ -1,0 +1,245 @@
+:root{
+  --bg:#000011;
+  --panel:#0a0a1a;
+  --accent:#ffd200;
+  --muted:#666;
+  --text:#ffffff;
+  --text-muted:#888;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family:'Segoe UI', Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
+
+#gameArea{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+canvas{
+  background:linear-gradient(180deg,#000011,#050025);
+  border:0;
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+}
+
+#header{
+  position:fixed;
+  left:0;
+  top:0;
+  right:0;
+  height:80px;
+  background:rgba(0,0,17,0.95);
+  backdrop-filter:blur(15px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  z-index:100;
+  border-bottom:2px solid rgba(255,255,255,0.15);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+
+#header .icon{
+  background:linear-gradient(135deg,rgba(255,210,0,0.2),rgba(255,210,0,0.1));
+  border:2px solid rgba(255,210,0,0.4);
+  color:#ffd200;
+  font-size:24px;
+  padding:12px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  font-weight:bold;
+  box-shadow:0 4px 12px rgba(255,210,0,0.2);
+}
+
+#header .icon:hover{
+  background:linear-gradient(135deg,rgba(255,210,0,0.3),rgba(255,210,0,0.2));
+  transform:scale(1.08);
+  box-shadow:0 6px 20px rgba(255,210,0,0.3);
+}
+
+#energyRate{
+  font-weight:700;
+  color:#ffd200;
+  font-size:18px;
+  text-shadow:0 2px 4px rgba(0,0,0,0.5);
+  background:rgba(255,210,0,0.1);
+  padding:8px 16px;
+  border-radius:8px;
+  border:1px solid rgba(255,210,0,0.3);
+}
+
+#statusRight{
+  text-align:right;
+  font-size:14px;
+  line-height:1.6;
+  color:#ffffff;
+  background:rgba(255,255,255,0.05);
+  padding:12px 16px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+#panel{
+  position:fixed;
+  left:20px;
+  right:20px;
+  top:100px;
+  background:rgba(10,10,26,0.95);
+  border-radius:16px;
+  padding:20px;
+  border:2px solid rgba(255,255,255,0.15);
+  z-index:90;
+  backdrop-filter:blur(20px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.7);
+  max-height:70vh;
+  overflow-y:auto;
+}
+
+.hidden{display:none}
+
+#gridOverlay{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+  pointer-events:none;
+  z-index:5;
+}
+
+/* Progress bar removed; kept out until minigame UI is fully reworked */
+
+/* exploration grid cells should be invisible (no bounding box) to feel like space; pointer-events enabled only where necessary */
+/* exploration cells: closed = pure black, opened = dark gray pixel style */
+.cell{position:absolute;width:80px;height:80px;border-radius:4px;pointer-events:auto}
+.cell.unexplored{background:#000}
+.cell.explored{background:#2b2b2b}
+.cell.explored.pixelTile{background-image:linear-gradient(transparent 60%, rgba(255,255,255,0.02) 60%), linear-gradient(90deg, transparent 60%, rgba(255,255,255,0.02) 60%); background-size:6px 6px,6px 6px}
+
+/* mini-game overlay */
+#minigameUI{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px;height:640px;display:none}
+
+/* simple HUD text */
+#energy{font-weight:700}
+
+/* placeholder sprites (will be replaced by textures later) */
+.placeholder{display:inline-block;width:48px;height:48px;background:var(--muted);border-radius:6px}
+
+/* exploration grid cells */
+.cell{position:absolute;width:80px;height:80px;border-radius:8px;border:2px dashed rgba(255,255,255,0.05);pointer-events:auto}
+.cell.unexplored{background:rgba(255,255,255,0.02)}
+.cell.explored{background:rgba(0,0,0,0.5);border-style:solid}
+
+/* Стили для кнопок */
+button{
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05));
+  border:2px solid rgba(255,255,255,0.2);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:bold;
+  backdrop-filter:blur(10px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+button:hover{
+  background:linear-gradient(135deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1));
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  border-color:rgba(255,255,255,0.3);
+}
+
+button:active{
+  transform:translateY(0);
+}
+
+button:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+button:disabled:hover{
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05));
+  transform:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Специальные кнопки */
+button[id*="buyLevel"]{
+  background:linear-gradient(135deg,#ffd200,#ffed4e);
+  color:#000;
+  font-weight:bold;
+  border-color:rgba(255,210,0,0.6);
+  box-shadow:0 4px 12px rgba(255,210,0,0.3);
+}
+
+button[id*="buyLevel"]:hover{
+  background:linear-gradient(135deg,#ffed4e,#ffd200);
+  box-shadow:0 6px 20px rgba(255,210,0,0.4);
+}
+
+button[id*="useBooster"]{
+  background:linear-gradient(135deg,#4a90e2,#6bb6ff);
+  font-size:14px;
+  padding:8px 16px;
+  border-color:rgba(74,144,226,0.6);
+  box-shadow:0 4px 12px rgba(74,144,226,0.3);
+}
+
+button[id*="useBooster"]:hover{
+  background:linear-gradient(135deg,#6bb6ff,#4a90e2);
+  box-shadow:0 6px 20px rgba(74,144,226,0.4);
+}
+
+/* Мини-игра */
+#minigameUI{
+  position:fixed !important;
+  bottom:0 !important;
+  left:0 !important;
+  right:0 !important;
+  top:auto !important;
+  transform:none !important;
+  width:auto !important;
+  height:120px !important;
+  display:flex !important;
+  z-index:200 !important;
+}
+
+/* Анимации */
+@keyframes pulse{
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.pulse{
+  animation:pulse 2s infinite;
+}
+
+@keyframes glow{
+  0%, 100% { box-shadow: 0 0 5px rgba(255,210,0,0.5); }
+  50% { box-shadow: 0 0 20px rgba(255,210,0,0.8); }
+}
+
+.glow{
+  animation:glow 2s infinite;
+}

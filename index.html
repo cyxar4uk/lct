@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Space Station — Gazprombank Gamified Hackathon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="ui">
+      <div id="header">
+        <button id="upgradeBtn" class="icon">🚀 СТАНЦИЯ</button>
+        <div id="energyRate">⚡ 0 / час</div>
+        <div id="statusRight">
+          <div style="font-size:16px; font-weight:bold; color:#ffd200; margin-bottom:4px;">РЕСУРСЫ</div>
+          <div>⚡ Энергия: <span id="energyVal">0</span>/<span id="energyCap">100</span></div>
+          <div>💨 Кислород: <span id="oxyVal">0</span></div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Ctrl+клик: перетаскивание<br/>Клик: исследовать область</div>
+        </div>
+      </div>
+      <div id="panel" class="hidden">
+        <div id="panelContent"></div>
+        <button id="closePanel" style="margin-top:16px; width:100%; padding:12px; font-size:16px; font-weight:bold;">✕ ЗАКРЫТЬ ПАНЕЛЬ</button>
+      </div>
+    </div>
+
+    <div id="gameArea">
+      <canvas id="mainCanvas"></canvas>
+      <div id="gridOverlay"></div>
+      <!-- progress bar removed to match request (will show only during minigame if re-enabled) -->
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
